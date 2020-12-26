@@ -1,5 +1,20 @@
 body {
-  margin: 0%;
-  font-family: sans-serif;
-  background-color: rebeccapurple;
+  background-color: darkslateblue;
+}
+
+textarea {
+  resize: none;
+  border: none;
+}
+.textarea-card {
+  text-align: center;
+  font-size: 0.75rem;
+}
+.base-card {
+  height: 310px;
+  width: 250px;
+  padding: 0;
+}
+.base-card > .card > .card-content {
+  padding: 0;
 }

@@ -4,7 +4,8 @@ from datetime import datetime
 import dotenv, os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MYSQL_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MYSQL_LOCAL_URI')
+# os.getenv('MYSQL_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -12,6 +13,8 @@ db = SQLAlchemy(app)
 class Task(db.Model):
     idtodo = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(255), nullable=False)
+    status = db.Column(db.Integer, default=0)
+    color = db.Column(db.String(10), default='#ffffffff')
     completed = db.Column(db.Integer, default=0)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -22,7 +25,8 @@ class Task(db.Model):
 def index():
     if request.method == 'POST':
         task_content = request.form['content']
-        new_task = Task(content=task_content)
+        task_color = request.form['color']
+        new_task = Task(content=task_content, color=task_color)
         try:
             db.session.add(new_task)
             db.session.commit()
@@ -31,7 +35,7 @@ def index():
             return 'Hubo un error'
 
     else:
-        tasks = Task.query.order_by(Task.date_created).all()
+        tasks = Task.query.order_by(Task.date_created.desc()).all()
         return render_template('index.html', tasks=tasks)
 
 @app.route('/delete/<int:id>')

@@ -1,32 +1,79 @@
 {% extends 'base.html' %} {% block head %}
 <title>Flask TODO</title>
-{% endblock %} {% block body %}
-<div class="content">
-  <h1>Task Master</h1>
-  {% if tasks|length < 1 %}
-  <h4>No hay tareas, crea una!</h4>
-  {% else %}
-  <table>
-    <tr>
-      <th>Task</th>
-      <th>Added</th>
-      <th>Actions</th>
-    </tr>
-    {% for task in tasks %}
-    <tr>
-      <td>{{ task.content }}</td>
-      <td>{{ task.date_created.date() }}</td>
-      <td>
-        <a href="/delete/{{ task.idtodo }}">Delete</a>
-        <a href="/update/{{ task.idtodo }}">Update</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% endif %}
-  <form action="/" method="POST" class="form">
-    <input type="text" name="content" id="content" />
-    <input type="submit" value="Add Task" />
-  </form>
+{% endblock %} 
+{% block body %}
+<div class="column">
+
+  <div class="base-card">
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <form action="/" method="POST" class="form tile is-vertical">
+            <textarea placeholder="Today I will..." rows="10" cols="5" name="content" /></textarea>
+            <input class='button' type="color" name="color">
+            <input class='button' type="submit" value="Add Task" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+{% if tasks|length < 1 %} 
+<h2 class="title">No hay tareas, crea una!</h2>
+{% else %} 
+  {% for task in tasks %}
+  <div class="column">
+    <div class="card" style="background-color:{{ task.color }}">
+      <div class="card-content textarea-card">
+        <div class="content">
+          <text readonly rows='4' cols='5'class="title is-4" style="background-color:{{ task.color }}">{{ task.content }}</text>
+          <br /><br>
+          <time datetime="2016-1-1">Created: {{ task.date_created}}</time>
+        </div>
+      </div>
+      <footer class="card-footer">
+        <a href="#" id="btn-done" class="card-footer-item">Done</a>
+        <a class="card-footer-item btn-update" href="#">Update</a>
+        <a class="card-footer-item btn-delete" href="/delete/{{ task.idtodo }}">Delete</a>
+      </footer>
+    </div>
+  </div>
+    {% endfor %} 
+    {% endif %}
+
+
+  <div class="modal-update modal">
+    <div class="modal-background"></div>
+    <form action="/update/{ task.idtodo }" method="POST" class="form">
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Task N°</p>
+        </header>
+        <section class="modal-card-body">
+          <textarea
+            name="content"
+            id="content"
+            rows="10" cols="50"
+            /></textarea>
+          </section>
+          <footer class="modal-card-foot">
+            <input class="button is-success" type="submit" value="Update Task" />
+            <a class="button btn-update" href="#">Cancel</a>
+          </footer>
+        </form>
+      </div>
+    
+      <div class="modal-delete modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <section class="modal-card-body">
+            Are you sure you want to delete task ?
+          </section>
+          <footer class="modal-card-foot">
+            <a class="button is-danger" href="/delete/{ task.idtodo }">Delete</a>
+        <a class="button btn-delete" href="#">Cancel</a>
+      </footer>
+    </div>
+  </div>
+
 {% endblock %}
