@@ -9,8 +9,8 @@
       <div class="card-content">
         <div class="content">
           <form action="/" method="POST" class="form tile is-vertical">
-            <textarea placeholder="Today I will..." rows="10" cols="5" name="content" /></textarea>
-            <input class='button' type="color" name="color">
+            <textarea placeholder="Today I will..." rows="10" cols="8" name="content" /></textarea>
+            <input class='button' type="color" name="color" value="#80ffff">
             <input class='button' type="submit" value="Add Task" />
           </form>
         </div>
@@ -22,11 +22,11 @@
 <h2 class="title">No hay tareas, crea una!</h2>
 {% else %} 
   {% for task in tasks %}
-  <div class="column">
+  <div class="column note-item" id='{{ task.idtodo }}'>
     <div class="card" style="background-color:{{ task.color }}">
       <div class="card-content textarea-card">
         <div class="content">
-          <text readonly rows='4' cols='5'class="title is-4" style="background-color:{{ task.color }}">{{ task.content }}</text>
+          <textarea readonly rows='5' cols='8'class="title is-4" style="background-color:{{ task.color }}">{{ task.content }}</textarea>
           <br /><br>
           <time datetime="2016-1-1">Created: {{ task.date_created}}</time>
         </div>

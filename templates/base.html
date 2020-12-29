@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en" class="has-background-dark">
+  <head >
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -14,10 +14,28 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <nav
+      class="navbar is-link"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <a class="navbar-item" href="https://github.com/bleumont" target="_blank">
+        <img
+          src="{{ url_for('static', filename='img/github.png') }}"
+          width="32"
+          height="32"
+          alt="GitHub"
+      />&nbsp;<span class="source-text">View source</span></a>
+      <div class="navbar-item navbar-end" ">
+        <input type="search" id="search-box" placeholder="Search note..." />
+      </div>
+    </nav>
     <div class="container">
-      <h1 class="title">TODO TASKS</h1>
-      <br />
-      <div class="columns is-multiline">{% block body %} {% endblock %}</div>
+      <br>
+      <h1 class="title is-dark">TODO TASKS</h1>
+      <div class="columns is-multiline" id="notes">
+        {% block body %} {% endblock %}
+      </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>

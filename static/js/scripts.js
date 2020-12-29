@@ -16,5 +16,25 @@ function modalDelete() {
 }
 function taskDone() {}
 
-modalDelete();
-modalUpdate();
+function searchFilter() {
+  const $inputBox = document.querySelector('#search-box'),
+    $searchArea = document.getElementById('notes'),
+    $searchItem = $searchArea.getElementsByClassName('note-item');
+  let $filter = $inputBox.value.toUpperCase();
+  for (let ele of $searchItem) {
+    let a = ele.getElementsByTagName('textarea')[0];
+    let txtValue = a.value || a.innerText;
+    if (txtValue.toUpperCase().indexOf($filter) > -1) {
+      ele.style.visibility = 'initial';
+      ele.style.opacity = 1;
+      ele.style.order = 0;
+    } else {
+      ele.style.visibility = 'hidden';
+      ele.style.opacity = 0;
+      ele.style.order = 1;
+    }
+  }
+}
+document.addEventListener('keyup', (e) => {
+  searchFilter();
+});

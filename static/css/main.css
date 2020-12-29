@@ -1,7 +1,3 @@
-body {
-  background-color: darkslateblue;
-}
-
 textarea {
   resize: none;
   border: none;
@@ -17,4 +13,13 @@ textarea {
 }
 .base-card > .card > .card-content {
   padding: 0;
+}
+.nav-title {
+  margin-bottom: 0;
+  font-size: 1.2rem !important;
+  font-weight: 600;
+}
+.source-text {
+  font-size: 1.2rem;
+  color: aliceblue;
 }
