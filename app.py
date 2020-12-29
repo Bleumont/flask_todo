@@ -4,8 +4,8 @@ from datetime import datetime
 import dotenv, os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MYSQL_LOCAL_URI')
-# os.getenv('MYSQL_URI')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('MYSQL_URI')
+# os.getenv('MYSQL_LOCAL_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
